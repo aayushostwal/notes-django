@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+.float_center1 {
+  float: right;
+
+  position: relative;
+  left: -45%; /* or right 50% */
+  text-align: left;
+}
+.float_center2 {
+  float: right;
+
+  position: relative;
+  left: -50%; /* or right 50% */
+  text-align: left;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+</style>
+    <head>
+        <title> Welcome! </title>  
+    </head>
+
+    <body style="background-color:powderblue;">
+        <h1 style="text-align:center">Note It!</h1>
+        <p style="text-align:center">Create and Mange notes on this platform</p>
+
+        <div class="topnav">
+            <h3 style="display:inline;float:left">My Notes</h3>
+            <form class="float_center1" method="POST" class="post-form" style="display:inline" class="float_center" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" placeholder="Search.." name="search_string">
+                <button type="submit">Search</button>
+            </form>            
+            <a style="display:inline;float:right" href="{% url 'initiate_new_note' %}" class="navbar-item">Create a New Note</a>
+          </div>
+
+
+        
+        <table border="1" style="width:100%">
+            <thead>
+                <th style="Width:10%">Document ID</th>
+                <th style="Width:65%">Document Title</th>
+                <th style="Width:20%">Create Time</th>
+                <th style="Width:2%">Action</th>
+            </thead>
+            {% for k in database  %}           
+            <tr>
+            <td style="text-align:center">{{k.id}}</td>
+            <td style="text-align:center">{{k.title}}</td>
+            <td style="text-align:center">{{k.date_time}}</td>
+            
+            <td>
+                <a href="{% url 'view_note' k.id %}">
+                  <img alt="View" title="View" src="https://cdn5.vectorstock.com/i/1000x1000/45/14/eye-view-security-symbol-isolated-icon-vector-11414514.jpg"
+                  width=20" height="20">
+              </a>
+
+              <a href="{% url 'del_note' k.id %}">
+                <img alt="Delete" title="Delete" src="https://www.freeiconspng.com/thumbs/remove-icon-png/remove-icon-png-26.png"
+                width=20" height="20">
+              </a>
+
+            </td>
+
+            </tr>
+        {% endfor %}
+        </table>
+
+
+    </body>
+</html>

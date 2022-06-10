@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Notes </title>  
+    </head>
+
+    <body style="background-color:powderblue;">
+        <h1>Note Saved!</h1>
+        <h3>The Note you created is</h3>
+        
+        <h4>Title:</h4>
+        <p>{{title}}</p>
+
+        <h4>Body:</h4>
+        <p>{{body}}</p>
+
+
+        <a href="{% url 'list_notes' %}" class="navbar-item">Go Back to list Page</a>
+    </body>
+</html>
